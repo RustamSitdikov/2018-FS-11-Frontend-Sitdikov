@@ -1,5 +1,5 @@
-function say() {
-  return 'Hello, friend!';
+function say(message) {
+  return `${message}!!!`;
 }
 
 export default say;
