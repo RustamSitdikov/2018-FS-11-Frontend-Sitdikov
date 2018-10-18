@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars,no-underscore-dangle,eqeqeq */
+/* eslint-disable no-unused-vars,no-underscore-dangle,eqeqeq,linebreak-style */
 
 // import styles from './index.css';
 import shadowStyles from './shadow.css';

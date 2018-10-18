@@ -1,3 +1,5 @@
+/* eslint-disable linebreak-style */
+
 import say from './test';
 import './message.css';
 
