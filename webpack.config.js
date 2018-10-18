@@ -42,6 +42,16 @@ module.exports = {
         include: sourceRoot,
         use: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'),
       },
+      {
+        test: /\.(png|jp(e*)g|svg)$/,
+        include: sourceRoot,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            name: 'assets/[hash]-[name].[ext]',
+          },
+        }],
+      },
     ],
   },
   plugins: [

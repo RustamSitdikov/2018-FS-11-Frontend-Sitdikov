@@ -7,10 +7,10 @@ const slotName = 'message-input';
 
 const template = `
 <style>${shadowStyles.toString()}</style>
-<form>
+<form class="chat">
 <div class="result"></div>
-<form-input name="message_text" placeholder="Введите сообщеине" slot="message-input">
-<span slot="icon"></span>
+<form-input type="text" name="message_text" placeholder="Введите сообщение" slot="message-input">
+<span slot="icon" class="attachment"></span>
 </form-input>
 </form>
 `;
