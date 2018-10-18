@@ -1,4 +1,4 @@
-import say from './lib/test';
+import say from './test';
 import './message.css';
 
 function getMessageEditText() {
