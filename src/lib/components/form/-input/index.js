@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars,no-tabs,no-underscore-dangle,linebreak-style */
+/* eslint-disable no-tabs,no-underscore-dangle,no-unused-vars */
 
 import styles from './index.css';
 import shadowStyles from './shadow.css';

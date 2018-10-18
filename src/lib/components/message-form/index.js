@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars,no-underscore-dangle,eqeqeq,linebreak-style */
+/* eslint-disable no-unused-vars,no-underscore-dangle */
 
 // import styles from './index.css';
 import shadowStyles from './shadow.css';
@@ -59,7 +59,7 @@ class MessageForm extends HTMLElement {
   }
 
   _onKeyPress(event) {
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
       this._elements.form.dispatchEvent(new Event('submit'));
     }
   }

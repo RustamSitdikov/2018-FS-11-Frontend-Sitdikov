@@ -16,6 +16,14 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /\.js$/,
+        include: sourceRoot,
+        use: {
+          loader: 'eslint-loader',
+        },
+      },
+      {
         test: /\.js$/,
         include: sourceRoot,
         use: {
