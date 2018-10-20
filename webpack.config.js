@@ -1,35 +1,66 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const sourceRoot = path.resolve(__dirname, 'src');
+
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    create: `${sourceRoot}/app/create/index.js`,
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
+    // publicPath: '/static/',
+    filename: '[name]/bundle.js',
   },
   module: {
     rules: [
       {
         enforce: 'pre',
         test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
+        include: sourceRoot,
+        use: {
+          loader: 'eslint-loader',
+        },
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
+        include: sourceRoot,
+        use: {
+          loader: 'babel-loader',
+        },
       },
       {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
+        test: /shadow\.css$/,
+        include: sourceRoot,
+        use: {
+          loader: 'css-loader',
+        },
+      },
+      {
+        test: /index\.css$/,
+        include: sourceRoot,
+        use: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'),
+      },
+      {
+        test: /\.(png|jp(e*)g|svg)$/,
+        include: sourceRoot,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            name: 'assets/[hash]-[name].[ext]',
+          },
+        }],
       },
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin(),
+    new ExtractTextPlugin({
+      filename: '[name]/style.css',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'create/index.html',
+      template: './src/app/create/index.html',
+    }),
   ],
 };

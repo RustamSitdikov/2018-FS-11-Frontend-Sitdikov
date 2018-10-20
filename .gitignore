@@ -1,8 +1,8 @@
 # JetBrains
-.idea/*
+.idea/
 
 # Dist
-dist/main.js
+dist/
 
 # Logs
 logs

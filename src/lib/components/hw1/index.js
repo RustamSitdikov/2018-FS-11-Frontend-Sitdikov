@@ -1,4 +1,6 @@
-import say from './lib/test';
+/* eslint-disable linebreak-style */
+
+import say from './test';
 import './message.css';
 
 function getMessageEditText() {

@@ -19,11 +19,10 @@
   "bugs": {
     "url": "https://github.com/RustamSitdikov/2018-FS-11-Frontend-Sitdikov/issues"
   },
-  "homepage": "https://github.com/RustamSitdikov/2018-FS-11-Frontend-Sitdikov#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.1.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
     "css-loader": "^1.0.0",
     "eslint": "^5.6.1",
     "eslint-config-airbnb": "^17.1.0",
@@ -31,8 +30,11 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "style-loader": "^0.23.1",
+    "style-loader": "^0.23.0",
+    "url-loader": "^1.1.2",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
   }
