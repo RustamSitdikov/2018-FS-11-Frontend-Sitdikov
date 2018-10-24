@@ -68,11 +68,20 @@ form-input {
 	letter-spacing: 0.15px;
 }
 
-.attachment {
+.attachmentIcon {
 	background: url("../../../assets/attachment.png") no-repeat;
 	width: 24px;
 	height: 24px;
 	position: absolute;
 	top: 12px;
 	right: 16px;
+}
+
+.attachmentFile {
+	display: none;
+}
+
+.preview {
+	width: 20vw;
+	height: 40vh;
 }
