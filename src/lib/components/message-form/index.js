@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars,no-underscore-dangle */
+/* eslint-disable no-unused-vars,no-underscore-dangle,prefer-const */
 
 // import styles from './index.css';
 import shadowStyles from './shadow.css';
@@ -8,10 +8,23 @@ const slotName = 'message-input';
 const template = `
 <style>${shadowStyles.toString()}</style>
 <form class="chat">
-<div class="result"></div>
-<form-input type="text" name="message_text" placeholder="Введите сообщение" slot="message-input">
-<span slot="icon" class="attachment"></span>
-</form-input>
+
+    <div class="chat-content">
+      <div id="messages" class="messages">
+      
+        <div class="message">
+            <div class="message-content left message-to">Привет, Рустам!</div>
+        </div>
+        <div class="message">
+            <div class="message-content right message-from">Привет, Мартин!</div>
+        </div>
+    
+      </div>
+  
+  </div>
+  <form-input type="text" name="message_text" placeholder="Введите сообщение" slot="message-input">
+    <span slot="icon" class="attachment"></span>
+  </form-input>
 </form>
 `;
 
@@ -37,10 +50,10 @@ class MessageForm extends HTMLElement {
 
   _initElements() {
     const form = this.shadowRoot.querySelector('form');
-    const message = this.shadowRoot.querySelector('.result');
+    const messages = this.shadowRoot.querySelector('#messages');
     this._elements = {
       form,
-      message,
+      messages,
     };
   }
 
@@ -51,9 +64,20 @@ class MessageForm extends HTMLElement {
   }
 
   _onSubmit(event) {
-    this._elements.message.innerText = Array.from(this._elements.form.elements).map(
-      el => el.value,
-    ).join(', ');
+    let message = document.createElement('div');
+    message.className = 'message';
+    let messageContent = document.createElement('div');
+    messageContent.className = 'message-content right message-from';
+    let { form } = this._elements;
+    messageContent.innerText = Array.from(form.elements)
+      .map(
+        el => el.value,
+      )
+      .join(', ');
+    message.appendChild(messageContent);
+    let { messages } = this._elements;
+    messages.appendChild(message);
+    // form._elements.input.value = '';
     event.preventDefault();
     return false;
   }
@@ -61,6 +85,7 @@ class MessageForm extends HTMLElement {
   _onKeyPress(event) {
     if (event.keyCode === 13) {
       this._elements.form.dispatchEvent(new Event('submit'));
+      this._elements.form.input = null;
     }
   }
 }
