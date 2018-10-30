@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars,no-underscore-dangle,prefer-const */
+/* eslint-disable no-unused-vars,no-underscore-dangle,prefer-const,class-methods-use-this */
 
 // import styles from './index.css';
 import shadowStyles from './shadow.css';
@@ -82,7 +82,6 @@ class MessageForm extends HTMLElement {
   _drop(event) {
     event.stopPropagation();
     event.preventDefault();
-
     this._handleFiles(event.dataTransfer.files);
   }
 
