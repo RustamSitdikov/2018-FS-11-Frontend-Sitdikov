@@ -1,87 +1,40 @@
-.right{
-	float: right;
-}
-.left{
-	float: left;
-}
-
-.chat {
-	display: flex;
-	flex-direction: column;
-	flex-flow: column wrap;
-	height: 100vh;
-	width: 100vw;
+div[slot=after] > button {
+	outline: none;
+	display: inline-block;
+	font: inherit;
+	box-sizing: content-box;
+	padding: 0;
+	margin: 5px 0 0 15px;
+	border: 0;
 }
 
-.chat-content {
-	flex: 1;
-	display: flex;
-	flex-direction: column-reverse;
-	overflow-y: scroll;
-	height: 100%;
-	background-color: #0a000000;
-}
-
-.messages {
-	width: 100%;
-}
-
-.message {
-	clear: both;
-	float: left;
-	width: 100%;
-}
-
-.message-content{
-	margin: 10px;
-	border-radius: 10px;
-	padding: 5px;
-	width: fit-content;
-	color: black;
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-}
-
-.message-from {
-	background-color: #f3e5f5;
-}
-
-.message-to {
-	background-color: #ffffff;
-}
-
-input[type=submit] {
-	visibility: collapse;
-}
-
-form-input {
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	padding: 16px 88px 16px 16px;
-	position: relative;
-
-	border-top: 1px solid gray;
-	background-color: #ffffff;
-	font-size: 16px;
+div[slot=after] > * {
+	width: 40px;
+	height: 30px;
+	text-align: center;
 	line-height: 50px;
-	letter-spacing: 0.15px;
+	background: #ffffff;
+	overflow: hidden;
+
 }
 
-.attachmentIcon {
-	background: url("../../../assets/attachment.png") no-repeat;
-	width: 24px;
-	height: 24px;
-	position: absolute;
-	top: 12px;
-	right: 16px;
-}
-
-.attachmentFile {
+div[slot=after] > button[type=submit] {
 	display: none;
+	line-height: 50px;
+	background-color: #8e24aa;
+	-webkit-mask-image: url("../../../assets/send.svg");
+	-webkit-mask-repeat: no-repeat;
 }
 
-.preview {
-	width: 20vw;
-	height: 40vh;
+.with-message div[slot=after] > button[type=submit] {
+    display: block;
+}
+
+div[slot=after] {
+	display: flex;
+	justify-content: space-around;
+}
+
+div[slot=after] > *:nth-child(0) {
+	margin: 0 0 0 5px;
 }
