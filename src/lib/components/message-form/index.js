@@ -1,34 +1,28 @@
-/* eslint-disable no-unused-vars,no-underscore-dangle,prefer-const,class-methods-use-this */
+/* eslint-disable no-unused-vars, no-tabs, no-underscore-dangle, no-return-assign, no-param-reassign, class-methods-use-this, no-plusplus, max-len */
 
-// import styles from './index.css';
 import shadowStyles from './shadow.css';
-
-const slotName = 'message-input';
+import FormInput from '../form/-input';
+import GeoInput from '../form/-geo-input';
+import FileInput from '../form/-file-input';
 
 const template = `
-<style>${shadowStyles.toString()}</style>
-<form class="chat">
-
-    <div class="chat-content">
-      <div id="messages" class="messages">
-      
-        <div class="message">
-            <div class="message-content left message-to">Привет, Рустам!</div>
-        </div>
-        <div class="message">
-            <div class="message-content right message-from">Привет, Мартин!</div>
-        </div>
- 
-      </div>
-  
-  </div>
-  <form-input type="text" name="message_text" placeholder="Введите сообщение" slot="message-input">
-    <span id="selection" class="attachmentIcon" slot="icon">
-        <input id="attachment" type="file" multiple class="attachmentFile">
-    </span>
-  </form-input>
-</form>
+	<style>${shadowStyles.toString()}</style>
+	<form>
+		<form-input name="message_text" placeholder="Введите сообщение" slot="message-input">
+			<div slot="before">
+			</div>
+			<div slot="after">
+				<file-input></file-input>
+				<button type="submit"></button>
+			</div>
+		</form-input>
+		<geo-input name="message-pos"></geo-input>
+	</form>
 `;
+
+const stateClasses = {
+  withMessage: 'with-message',
+};
 
 class MessageForm extends HTMLElement {
   constructor() {
@@ -37,7 +31,6 @@ class MessageForm extends HTMLElement {
     shadowRoot.innerHTML = template;
     this._initElements();
     this._addHandlers();
-    this._initMessages();
   }
 
   static get observedAttributes() {
@@ -48,146 +41,103 @@ class MessageForm extends HTMLElement {
   }
 
   attributeChangedCallback(attrName, oldVal, newVal) {
-    this._form[attrName] = newVal;
+    this._elements.form[attrName] = newVal;
   }
 
   _initElements() {
-    this._form = this.shadowRoot.querySelector('form');
-    this._message = this.shadowRoot.querySelector('form-input');
-    this._messages = this.shadowRoot.querySelector('#messages');
-    this._selection = this.shadowRoot.querySelector('#selection');
-    this._attachment = this.shadowRoot.querySelector('#attachment');
+    const form = this.shadowRoot.querySelector('form');
+    const message = this.shadowRoot.querySelector('form-input');
+    const fileInput = this.shadowRoot.querySelector('file-input');
+    this._elements = {
+      form,
+      message,
+      file: fileInput,
+    };
   }
 
   _addHandlers() {
-    this._form.addEventListener('submit', this._onSubmit.bind(this));
-    this._form.addEventListener('keypress', this._onKeyPress.bind(this));
-    this._selection.addEventListener('click', this._selectFiles.bind(this));
-    this._attachment.addEventListener('change', this._attachFiles.bind(this));
-    this._messages.addEventListener('dragenter', this._dragenter.bind(this));
-    this._messages.addEventListener('dragover', this._dragover.bind(this));
-    this._messages.addEventListener('drop', this._drop.bind(this));
-  }
-
-  _dragenter(event) {
-    event.stopPropagation();
-    event.preventDefault();
-  }
-
-  _dragover(event) {
-    event.stopPropagation();
-    event.preventDefault();
-  }
-
-  _drop(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    this._handleFiles(event.dataTransfer.files);
-  }
-
-  _initMessages() {
-    this._getMessagesFromStorage().map((message) => {
-      this._sendMessage(message);
-      return this;
-    });
-  }
-
-  _getStorage() {
-    return localStorage;
-  }
-
-  _getMessagesFromStorage() {
-    let messages = this._getStorage().getItem('messages');
-    if (messages) {
-      messages = JSON.parse(messages);
-    } else {
-      messages = [];
-    }
-    return messages;
-  }
-
-  _saveMessageToStorage(message) {
-    let messages = this._getMessagesFromStorage();
-    if (message) {
-      messages.push(message);
-    }
-    this._getStorage().setItem('messages', JSON.stringify(messages));
-  }
-
-  _sendMessage(text) {
-    let message = document.createElement('div');
-    message.className = 'message';
-    let messageContent = document.createElement('div');
-    messageContent.innerText = text;
-    messageContent.className = 'message-content right message-from';
-    message.appendChild(messageContent);
-    this._messages.appendChild(message);
-    // this._attachment.dispatchEvent(new Event('sendMessage'));
-  }
-
-  _sendFile(file) {
-    let message = document.createElement('div');
-    message.className = 'message';
-    let messageContent = document.createElement('div');
-    messageContent = file;
-    messageContent.className = 'message-content right message-from preview';
-    message.appendChild(messageContent);
-    this._messages.appendChild(message);
-    // this._attachment.dispatchEvent(new Event('sendFile'));
-  }
-
-  _sendGeoPosition() {
-    let context = this;
-    navigator.geolocation.getCurrentPosition((position) => {
-      context._sendMessage(`latitude=${position.coords.latitude}, longitude=${position.coords.longitude}`);
-    });
+    this._elements.form.addEventListener('submit', this._onSubmit.bind(this));
+    this._elements.message.addEventListener('input', this._onInput.bind(this));
+    this._elements.form.addEventListener('keypress', this._onKeyPress.bind(this));
+    this._elements.file.addEventListener('change', this._onFileChange.bind(this));
   }
 
   _onSubmit(event) {
-    let { input } = this._message._elements;
-    let message = input.value;
+    const messageText = this._elements.message.value;
+    if (!messageText) return;
+    const message = this.createMessage({
+      text: messageText,
+      my: true,
+    });
+    this._elements.message.value = '';
+    this._elements.form.classList.remove(stateClasses.withMessage);
     this._sendMessage(message);
-    this._saveMessageToStorage(message);
-    input.value = '';
     event.preventDefault();
-    return false;
   }
 
   _onKeyPress(event) {
     if (event.keyCode === 13) {
-      this._form.dispatchEvent(new Event('submit'));
+      this._elements.form.dispatchEvent(new Event('submit'));
     }
   }
 
-  _selectFiles(event) {
-    this._attachment.click();
+  _onInput() {
+    if (this._elements.message.value.length > 0) {
+      this._elements.form.classList.add(stateClasses.withMessage);
+    } else {
+      this._elements.form.classList.remove(stateClasses.withMessage);
+    }
   }
 
-  _attachFiles(event) {
-    this._handleFiles(this._attachment.files);
+  _onFileChange(event) {
+    const message = this.createMessage({
+      text: null,
+      my: true,
+      attach: event.target.files[0],
+    });
+    this._sendMessage(message);
   }
 
-  _handleFiles(files) {
-    Array.from(files).forEach((file) => {
-      let imageType = /image.*/;
-      if (file.type.match(imageType)) {
-        let img = document.createElement('img');
-        let reader = new FileReader();
-        reader.onloadend = function () {
-          img.src = reader.result;
-        };
+  createMessage(params) {
+    const message = Object.create({});
+    Object.keys(params).forEach(key => message[key] = params[key]);
+    Object.defineProperty(message, 'my', {
+      configurable: true,
+      enumerable: false,
+    });
+    message.my = true;
+    message.time = new Date();
+    message.time.toString = message.time.getTime();
+    message.id = Math.round(new Date().getTime() + (Math.random() * 100));
+    message.status = 'loading';
+    return message;
+  }
 
-        if (file) {
-          reader.readAsDataURL(file);
-        } else {
-          img.src = file.name;
-        }
-        this._sendFile(img);
-      } else {
-        this._sendMessage(file.name);
+  _sendMessage(message) {
+    message.sending = fetch(this.action, {
+      method: 'POST',
+      body: Object.keys(message).reduce((formData, key) => {
+        if (message[key]) formData.append(key, message[key]);
+        return formData;
+      }, new FormData()),
+    }).then((response) => {
+      if (response.ok) {
+        message.status = 'loaded';
+        const newMessageEvent = new CustomEvent('update-message', {
+          bubbles: false,
+          detail: message,
+        });
+        this.dispatchEvent(newMessageEvent);
       }
     });
+    const newMessageEvent = new CustomEvent('new-message', {
+      bubbles: false,
+      detail: message,
+    });
+    this.dispatchEvent(newMessageEvent);
   }
 }
 
 customElements.define('message-form', MessageForm);
+
+export default MessageForm;
