@@ -15,38 +15,36 @@ class Chat extends React.Component {
                     text: 'What\'s up Martin?',
                     time: new Date(),
                     my: false,
-                },
-                {
-                    id: 2,
-                    text: 'What\'s up Martin?',
-                    time: new Date(),
-                    my: false,
-                },
-                {
-                    id: 3,
-                    text: 'I\'m fine bro!',
-                    time: new Date(),
-                    my: true,
-                    status: statuses.loading
-                },
-                {
-                    id: 4,
-                    text: 'I\'m fine bro!',
-                    time: new Date(),
-                    my: true,
-                    status: statuses.loading
                 }
             ]
         };
         this.sendMessage = this.sendMessage.bind(this);
+        this.updateMessage = this.updateMessage.bind(this);
     }
 
     sendMessage(message) {
-        const messages = this.state.messages.slice();
+        let {messages} = this.state;
         messages.push(message);
-        this.setState({
-            messages: messages,
+        this.setState({ messages: messages});
+
+        fetch('http://localhost:8090/message', {
+            method: 'POST',
+            body: Object.keys(message).reduce((formData, key) => {
+                if (message[key]) formData.append(key, message[key]);
+                return formData;
+            }, new FormData()),
+        }).then((response) => {
+            if (response.ok) {
+                message.status = statuses.loaded;
+                this.updateMessage(message);
+            }
         });
+    }
+
+    updateMessage(message) {
+        let {messages} = this.state;
+        messages.map(item => item.id === message.id ? item.status = statuses.loaded : null);
+        this.setState({ messages: messages});
     }
 
     render() {

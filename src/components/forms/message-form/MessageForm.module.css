@@ -35,5 +35,5 @@
 }
 
 .FileInput {
-    display: block;
+    visibility: hidden;
 }

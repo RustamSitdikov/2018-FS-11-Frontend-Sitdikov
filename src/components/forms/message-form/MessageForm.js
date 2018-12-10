@@ -11,7 +11,7 @@ class MessageForm extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleFile = this.handleChange.bind(this);
+        this.handleFile = this.handleFile.bind(this);
     }
 
     createMessage(text, attach) {
@@ -43,7 +43,7 @@ class MessageForm extends React.Component {
     }
 
     handleFile(event) {
-        const message = this.createMessage(null, event.target.files[0]);
+        const message = this.createMessage('', event.target.files[0]);
         this.props.sendMessage(message);
     }
 
@@ -57,9 +57,10 @@ class MessageForm extends React.Component {
                 {isTyping ? (
                     <label className={classes.SendForm} onClick={this.handleSubmit}/>
                 ) : (
-                    <div className={classes.FileForm}>
-                        <label htmlFor="file" onClick={this.handleFile}/>
-                        <input className={classes.FileInput} type="file" id="file" name="file" multiple/>
+                    <div className={classes.FileForm} onClick={() => {this.inputFile.click()}}>
+                        <input className={classes.FileInput} type='file' multiple
+                               ref={input=>this.inputFile=input}
+                               onChange={this.handleFile}/>
                     </div>
                 )}
             </form>

@@ -3,9 +3,63 @@
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     border-top: 1px solid #3f3f3f;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    height: 70px;
+}
+
+.Back {
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    -webkit-mask-image: url("../../../assets/arrow_back.svg");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position-x: center;
+    -webkit-mask-position-y: center;
+    margin-right: 50px;
+    margin-top: 10px;
+}
+
+.Avatar {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    background: url('../../../assets/avatar.png') no-repeat;
+    background-size:contain;
+}
+
+.Name {
+    margin-top: 20px;
+    margin-left: 10px;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.Search {
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    -webkit-mask-image: url("../../../assets/filled.svg");
+    transform: scaleX(-1) scaleY(-1);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position-x: center;
+    -webkit-mask-position-y: center;
+    margin-top: 10px;
+    margin-left: auto;
+}
+
+.Settings {
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    -webkit-mask-image: url("../../../assets/more_vert.svg");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position-x: center;
+    -webkit-mask-position-y: center;
+    margin-right: 30px;
+    margin-top: 10px;
+    margin-left: 50px;
 }

@@ -3,10 +3,10 @@ import classes from './Message.module.css'
 import statuses from '../../utils/status/index'
 import { imagePattern, getReadableSize } from '../../utils/file/index';
 
-const Size = ({file}) => {
-    const size = getReadableSize(file.size);
+const Size = ({message}) => {
+    const size = getReadableSize(message.attach.size);
     return (
-        <span className={classes.End}>{size}</span>
+        <span className={[classes.Text, classes.End].join(' ')}>{size}</span>
     );
 };
 
@@ -16,7 +16,7 @@ const Time = ({message}) => {
         message.time.getMinutes(),
     ].map(num => (num < 10 ? `0${num}` : num)).join(':');
     return (
-        <span className={classes.Time}>{time}</span>
+        <span className={classes.Text}>{time}</span>
     );
 };
 
@@ -33,7 +33,7 @@ const Status = ({message}) => {
 const Image = ({file}) => {
     const src = URL.createObjectURL(file);
     return (
-        <img src={src} alt={'file'} onLoad={() => URL.revokeObjectURL(src)}/>
+        <img className={classes.Image} src={src} alt={'file'} onLoad={() => URL.revokeObjectURL(src)}/>
     );
 };
 
