@@ -1,47 +1,67 @@
 import React from 'react';
-import classes from './MessageForm.css'
+import statuses from '../../../utils/status/index'
+import classes from './MessageForm.module.css'
+import InputForm from '../input-form/InputForm';
 
 class MessageForm extends React.Component {
     constructor() {
         super();
         this.state = {
-            message: {
-                text: ''
-            }
+            message: { text: '' }
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFile = this.handleChange.bind(this);
+    }
+
+    createMessage(text, attach) {
+        return {
+            id: Math.round(new Date().getTime() + (Math.random() * 100)),
+            text: text,
+            attach: attach,
+            time: new Date(),
+            my: true,
+            status: statuses.loading,
+        }
     }
 
     handleChange(event) {
         this.setState({
-            message: {
-                id: 3,
-                text: event.target.value,
-                my: true,
-            }
+            message: this.createMessage(event.target.value, null)
         })
     }
 
     handleSubmit(event) {
-        event.preventDefault();
-        this.props.sendMessage(this.state.message);
-        this.setState({
-            message: {
-                text: ''
-            }
-        })
+        const message = this.state.message;
+        if (message.text.length > 0) {
+            event.preventDefault();
+            this.props.sendMessage(message);
+            this.setState({
+                message: { text: '' }
+            })
+        }
+    }
+
+    handleFile(event) {
+        const message = this.createMessage(null, event.target.files[0]);
+        this.props.sendMessage(message);
     }
 
     render() {
+        const message = this.state.message;
+        const text = message.text;
+        const isTyping = text.length > 0;
         return (
-            <form
-                className={classes.MessageForm} onSubmit={this.handleSubmit}>
-                <input
-                    onChange={this.handleChange}
-                    value={this.state.message.text}
-                    placeholder="Введите сообщение"
-                    type="text" />
+            <form className={classes.MessageForm} onSubmit={this.handleSubmit}>
+                <InputForm onChange={this.handleChange} value={text}/>
+                {isTyping ? (
+                    <label className={classes.SendForm} onClick={this.handleSubmit}/>
+                ) : (
+                    <div className={classes.FileForm}>
+                        <label htmlFor="file" onClick={this.handleFile}/>
+                        <input className={classes.FileInput} type="file" id="file" name="file" multiple/>
+                    </div>
+                )}
             </form>
         )
     }

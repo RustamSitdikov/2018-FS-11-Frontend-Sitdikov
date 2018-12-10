@@ -1,0 +1,62 @@
+span {
+    float: left;
+    margin-right: 5px;
+}
+
+.Time {
+    font-size: 12px;
+    color: rgba(0,0,0, 0.6);
+    padding-top: 4px;
+    float: right;
+}
+
+.Content {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid rgba(0,0,0,0.25);
+    margin: 4px 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    border-radius: 3px;
+    background: #fff;
+}
+
+.My {
+    background: #f3e5f5;
+    align-self: flex-end;
+}
+
+.Bar {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-self: auto;
+    align-items: flex-start;
+}
+
+.Loading {
+    height: 20px;
+    margin-right: 0;
+    background-color: #8e24aa;
+    content: url("../../assets/done.svg");
+    -webkit-mask-image: url("../../assets/done.svg");
+    -webkit-mask-repeat: no-repeat;
+    align-content: flex-end;
+}
+
+.Loaded {
+    height: 20px;
+    margin-right: 0;
+    background-color: #8e24aa;
+    content: url("../../assets/done_all.svg");
+    -webkit-mask-image: url("../../assets/done_all.svg");
+    -webkit-mask-repeat: no-repeat;
+}
+
+.Start {
+    align-content: flex-start;
+}
+
+.End {
+    align-content: flex-end;
+}
+

@@ -1,9 +1,10 @@
 import React from 'react';
+import classes from './ChatBar.module.css';
 
 class ChatBar extends React.Component {
     render() {
         return (
-            <p>Awesome Chat</p>
+            <div className={classes.ChatBar}>Awesome Chat</div>
         );
     }
 }

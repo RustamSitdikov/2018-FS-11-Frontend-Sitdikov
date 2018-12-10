@@ -1,13 +1,10 @@
-body {
+.Chat {
     padding: 0;
     margin: 0;
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     flex-basis: 50px;
     height: 100vh;
     font-family: 'Roboto', sans-serif;
-}
-
-.App {
-    flex-grow: 1;
 }

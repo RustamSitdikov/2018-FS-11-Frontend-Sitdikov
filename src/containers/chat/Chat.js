@@ -1,8 +1,9 @@
 import React from 'react';
-import classes from './Chat.css'
-import MessageList from "../../components/lists/message-list/MessageList";
-import MessageForm from "../../components/forms/message-form/MessageForm";
-import ChatBar from "../../components/bars/chat-bar/ChatBar"
+import classes from './Chat.module.css'
+import statuses from '../../utils/status/index'
+import MessageList from '../../components/lists/message-list/MessageList';
+import MessageForm from '../../components/forms/message-form/MessageForm';
+import ChatBar from '../../components/bars/chat-bar/ChatBar'
 
 class Chat extends React.Component {
     constructor() {
@@ -12,12 +13,28 @@ class Chat extends React.Component {
                 {
                     id: 1,
                     text: 'What\'s up Martin?',
+                    time: new Date(),
                     my: false,
                 },
                 {
                     id: 2,
+                    text: 'What\'s up Martin?',
+                    time: new Date(),
+                    my: false,
+                },
+                {
+                    id: 3,
                     text: 'I\'m fine bro!',
+                    time: new Date(),
                     my: true,
+                    status: statuses.loading
+                },
+                {
+                    id: 4,
+                    text: 'I\'m fine bro!',
+                    time: new Date(),
+                    my: true,
+                    status: statuses.loading
                 }
             ]
         };
@@ -37,7 +54,7 @@ class Chat extends React.Component {
             <div className={classes.Chat}>
                 <ChatBar/>
                 <MessageList messages={this.state.messages} />
-                <MessageForm onSubmit={this.sendMessage}/>
+                <MessageForm sendMessage={this.sendMessage}/>
             </div>
         );
     }
