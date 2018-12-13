@@ -1,7 +1,8 @@
 import React from 'react';
-import classes from './Message.module.css'
-import statuses from '../../utils/status/index'
+import classes from './Message.module.css';
+import statuses from '../../utils/status/index';
 import { imagePattern, getReadableSize } from '../../utils/file/index';
+import getTime from '../../utils/time/index';
 
 const Size = ({message}) => {
     const size = getReadableSize(message.attach.size);
@@ -11,10 +12,7 @@ const Size = ({message}) => {
 };
 
 const Time = ({message}) => {
-    const time =  [
-        message.time.getHours(),
-        message.time.getMinutes(),
-    ].map(num => (num < 10 ? `0${num}` : num)).join(':');
+    const time = getTime(message.date);
     return (
         <span className={classes.Text}>{time}</span>
     );
@@ -76,26 +74,24 @@ const Attach = ({message}) => {
     );
 };
 
-const Content = ({message}) => {
-    const isAttach = message.attach;
-    const my = message.my;
-    return (
-        <div className={[classes.Content, my ? classes.My : ''].join(' ')}>
-            {isAttach ? (
-                <Attach message={message}/>
-            ) : (
-                <Text message={message}/>
-            )}
-            <Bar message={message} isAttach={isAttach} my={my}/>
-        </div>
-    );
-};
-
 class Message extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        const message = this.props.message;
+        const {message} = this.props;
+        const isAttach = message.attach;
+        const my = message.my;
         return (
-            <Content message={message}/>
+            <div className={[classes.Message, my ? classes.My : ''].join(' ')}>
+                {isAttach ? (
+                    <Attach message={message}/>
+                ) : (
+                    <Text message={message}/>
+                )}
+                <Bar message={message} isAttach={isAttach} my={my}/>
+            </div>
         );
     }
 }

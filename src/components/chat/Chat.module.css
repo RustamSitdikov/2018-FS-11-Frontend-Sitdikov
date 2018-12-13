@@ -1,0 +1,63 @@
+.Chat {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 60px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    padding: 5px;
+}
+
+.Icon {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    /*background: url('../../assets/icon.png') no-repeat;*/
+    /*background-size:contain;*/
+}
+
+.Title {
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #000000;
+    font-size: 16px;
+}
+
+.Message {
+    margin-top: 5px;
+    margin-left: 10px;
+    color: gray;
+    font-size: 12px;
+}
+
+.End {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.Time {
+    margin-top: 10px;
+    color: gray;
+    font-size: 12px;
+}
+
+.Loading {
+    width: 10px;
+    height: 10px;
+    margin-top: 5px;
+    background-color: #8e24aa;
+    content: url("../../assets/done.svg");
+    -webkit-mask-image: url("../../assets/done.svg");
+    -webkit-mask-repeat: no-repeat;
+    background-size:contain;
+}
+
+.Loaded {
+    width: 20px;
+    height: 20px;
+    background-color: #8e24aa;
+    content: url("../../assets/done_all.svg");
+    -webkit-mask-image: url("../../assets/done_all.svg");
+    -webkit-mask-repeat: no-repeat;
+    background-size:contain;
+}

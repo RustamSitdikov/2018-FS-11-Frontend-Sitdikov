@@ -1,31 +1,28 @@
 import React from 'react';
-import classes from './Chat.module.css'
+import classes from './ChatContainer.module.css'
 import statuses from '../../utils/status/index'
 import MessageList from '../../components/lists/message-list/MessageList';
 import MessageForm from '../../components/forms/message-form/MessageForm';
 import ChatBar from '../../components/bars/chat-bar/ChatBar'
 
-class Chat extends React.Component {
-    constructor() {
-        super();
+class ChatContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
         this.state = {
-            messages: [
-                {
-                    id: 1,
-                    text: 'What\'s up Martin?',
-                    time: new Date(),
-                    my: false,
-                }
-            ]
+            chat: props.chat
         };
+
         this.sendMessage = this.sendMessage.bind(this);
         this.updateMessage = this.updateMessage.bind(this);
     }
 
     sendMessage(message) {
-        let {messages} = this.state;
+        let chat = {...this.state.chat};
+        let {messages} = chat;
         messages.push(message);
-        this.setState({ messages: messages});
+        chat.messages = messages;
+        this.setState({chat: chat});
 
         fetch('http://localhost:8090/message', {
             method: 'POST',
@@ -42,20 +39,24 @@ class Chat extends React.Component {
     }
 
     updateMessage(message) {
-        let {messages} = this.state;
+        let chat = {...this.state.chat};
+        let {messages} = chat;
         messages.map(item => item.id === message.id ? item.status = statuses.loaded : null);
-        this.setState({ messages: messages});
+        chat.messages = messages;
+        this.setState({chat: chat});
     }
 
     render() {
+        const {chat} = this.state;
+        const {messages} = chat;
         return (
-            <div className={classes.Chat}>
-                <ChatBar/>
-                <MessageList messages={this.state.messages} />
+            <div className={classes.ChatContainer}>
+                <ChatBar chat={chat}/>
+                <MessageList messages={messages} />
                 <MessageForm sendMessage={this.sendMessage}/>
             </div>
         );
     }
 }
 
-export default Chat;
+export default ChatContainer;
