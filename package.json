@@ -1,48 +1,26 @@
 {
   "name": "frontend",
-  "version": "1.0.0",
-  "description": "technotrack's frontend",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-redux": "^6.0.0",
+    "react-scripts": "2.1.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint": "eslint src/**/*.js",
-    "watch": "webpack --watch --mode development",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "dev-server": "webpack-dev-server --mode=development --open"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "files": [
-    "/dist"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RustamSitdikov/2018-FS-11-Frontend-Sitdikov.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "author": "Rustam Sitdikov",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/RustamSitdikov/2018-FS-11-Frontend-Sitdikov/issues"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.1.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "css-loader": "^1.0.0",
-    "eslint": "^5.6.1",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-loader": "^2.1.1",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.11.1",
-    "express": "^4.16.4",
-    "express-fileupload": "^1.0.0",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^2.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "style-loader": "^0.23.0",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
-  }
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
