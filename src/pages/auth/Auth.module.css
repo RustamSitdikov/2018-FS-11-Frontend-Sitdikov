@@ -1,0 +1,18 @@
+
+.Auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.Title {
+    color: white;
+    font-size: 34px;
+    margin-bottom: 30px;
+}
+
+.Item {
+    margin: 10px;
+}

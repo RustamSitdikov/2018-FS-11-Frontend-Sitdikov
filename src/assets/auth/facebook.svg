@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="52" viewBox="0 0 300 52">
+    <g fill="none" fill-rule="evenodd">
+        <rect width="300" height="52" fill="#3B5998" rx="8"/>
+        <path fill="#263C68" d="M8 0h44v52H8a8 8 0 0 1-8-8V8a8 8 0 0 1 8-8z"/>
+        <path fill="#FFF" fill-rule="nonzero" d="M34.895 16H17.104c-.61 0-1.104.494-1.104 1.104v17.791c0 .61.495 1.105 1.104 1.105h9.578v-7.745h-2.606v-3.019h2.606V23.01c0-2.583 1.577-3.99 3.882-3.99 1.105 0 2.052.082 2.329.118v2.7h-1.599c-1.253 0-1.495.596-1.495 1.47v1.927h2.99l-.391 3.019h-2.599v7.745h5.096c.61 0 1.105-.495 1.105-1.104V17.103c0-.61-.495-1.103-1.105-1.103z"/>
+        <text fill="#FFF" font-family="Roboto-Bold, Roboto" font-size="16" font-weight="bold">
+            <tspan x="88.266" y="31">LOGIN WITH FACEBOOK</tspan>
+        </text>
+    </g>
+</svg>

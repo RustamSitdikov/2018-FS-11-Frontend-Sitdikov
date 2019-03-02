@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="52" viewBox="0 0 300 52">
+    <g fill="none" fill-rule="evenodd">
+        <rect width="300" height="52" fill="#F44336" rx="8"/>
+        <path fill="#C53126" d="M8 0h44v52H8a8 8 0 0 1-8-8V8a8 8 0 0 1 8-8z"/>
+        <text fill="#FFF" font-family="Roboto-Bold, Roboto" font-size="16" font-weight="bold">
+            <tspan x="97.387" y="32">LOGIN WITH GOOGLE</tspan>
+        </text>
+        <path fill="#FFF" fill-rule="nonzero" d="M32.318 24.526h-7.43v3.553h3.737c-.503 1.474-1.72 2.368-3.276 2.368-2.08 0-3.905-1.845-3.905-3.949 0-2.102 1.825-3.945 3.905-3.945.994 0 1.835.327 2.431.947l.27.281 2.563-2.644-.278-.279C29.122 19.643 27.398 19 25.349 19 21.229 19 18 22.294 18 26.498 18 30.705 21.228 34 25.349 34c3.798 0 6.497-2.299 7.043-6 .071-.48.108-.985.108-1.502 0-.567-.047-1.182-.126-1.645l-.056-.327z"/>
+    </g>
+</svg>
